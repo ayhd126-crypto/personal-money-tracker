@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Personal Money Tracker</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f0f0f">
+</head>
+<body>
+
+<h1>Personal Money Tracker</h1>
+
+<!-- CORNER SUMMARY -->
+<div class="corner-summary">
+  <div><strong>I OWE:</strong> ₹<span id="iOwe">0</span></div>
+  <div><strong>I AM OWED:</strong> ₹<span id="iAmOwed">0</span></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button onclick="showTab('expenses')">Expenses</button>
+  <button onclick="showTab('debts')">Debts</button>
+  <button onclick="showTab('oweme')">Owe Me</button>
+</div>
+
+<!-- ================= EXPENSES ================= -->
+<div id="expenses" class="tab">
+
+  <h2>Total Spent: ₹<span id="totalSpent">0</span></h2>
+
+  <!-- SPENDING CONTEXT -->
+  <div
+    id="spendingContext"
+    style="margin-top:6px; font-size:14px; color:#bbb;"
+  ></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Amount (₹)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="expenseTable"></tbody>
+  </table>
+
+  <!-- UNDO BAR -->
+  <div
+    id="undoBar"
+    style="display:none; margin-top:10px; font-size:13px; color:#aaa;"
+  >
+    Expense deleted.
+    <button onclick="undoDelete()" style="margin-left:8px;">Undo</button>
+  </div>
+
+  <!-- QUICK ADD -->
+  <div style="margin-top:15px; padding:10px; border:1px dashed #444; background:#151515;">
+    <strong>Quick Add</strong>
+    <div style="font-size:13px; color:#aaa; margin-top:4px;">
+      In a rush? Just add the amount. You can fill details later.
+    </div>
+
+    <input
+      id="quickAmount"
+      type="number"
+      placeholder="Amount (₹)"
+      style="margin-top:6px;"
+    />
+    <button onclick="quickAdd()">Add</button>
+  </div>
+
+  <h3>Add Expense</h3>
+
+  <select id="category">
+    <option>Food</option>
+    <option>Laundry</option>
+    <option>Mess</option>
+    <option>Transport</option>
+    <option>Other</option>
+  </select>
+
+  <input id="desc" placeholder="Description" />
+  <input id="amount" type="number" placeholder="Amount" />
+  <button onclick="addExpense()">Add</button>
+</div>
+
+<!-- ================= DEBTS ================= -->
+<div id="debts" class="tab hidden">
+  <h2>You Owe — Total: ₹<span id="debtTotal">0</span></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Note</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="debtsTable"></tbody>
+  </table>
+
+  <h3>Add Debt</h3>
+  <input id="debtName" placeholder="Person name" />
+  <input id="debtAmount" type="number" placeholder="Amount" />
+  <input id="debtNote" placeholder="Note (optional)" />
+  <button onclick="addDebt()">Add</button>
+</div>
+
+<!-- ================= OWE ME ================= -->
+<div id="oweme" class="tab hidden">
+  <h2>Owed To You — Total: ₹<span id="oweTotal">0</span></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Note</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="oweTable"></tbody>
+  </table>
+
+  <h3>Add Owe Me</h3>
+  <input id="oweName" placeholder="Person name" />
+  <input id="oweAmount" type="number" placeholder="Amount" />
+  <input id="oweNote" placeholder="Note (optional)" />
+  <button onclick="addOwe()">Add</button>
+</div>
+
+<!-- FOOTER -->
+<footer style="margin-top:40px; text-align:center; font-size:12px; color:#666;">
+  Built by Ayaan · Personal project · All data stays on your device
+</footer>
+
+<!-- APP SCRIPT -->
+<script src="script.js"></script>
+
+<!-- SERVICE WORKER REGISTRATION -->
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+</script>
+
+</body>
+</html>
