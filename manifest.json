@@ -1,0 +1,8 @@
+{
+  "name": "Personal Money Tracker",
+  "short_name": "Money Tracker",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f"
+}
